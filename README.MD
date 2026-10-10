@@ -23,3 +23,7 @@ Go to admin panel -> tab customise -> Manage extensions -> enable Genders
 3. Upload all the new files to the same locations
 4. Go to you phpBB-Board > Admin Control Panel > Customise > Manage extensions > Genders: enable
 5. Purge the board cache
+
+## TODO
+
+Ideas not yet built, practical and speculative alike: [`docs/TODO.md`](docs/TODO.md).
