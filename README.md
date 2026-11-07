@@ -14,6 +14,21 @@ Lets members choose a gender, shown as an icon in posts, profiles and search res
   - show gender in User Statistics or in the main profile details;
   - choose which genders members can pick.
 
+## Screenshots
+
+<table>
+<tr>
+<td><a href="docs/images/screenshots/genders-viewtopic.png"><img src="docs/images/screenshots/genders-viewtopic.png" width="440" height="144" alt="Gender icons in post author profiles"></a></td>
+<td><a href="docs/images/screenshots/genders-ucp-profile.png"><img src="docs/images/screenshots/genders-ucp-profile.png" width="440" height="169" alt="Gender selector in the UCP profile"></a></td>
+</tr>
+<tr>
+<td><a href="docs/images/screenshots/genders-profile.png"><img src="docs/images/screenshots/genders-profile.png" width="440" height="131" alt="Gender on a member profile"></a></td>
+<td><a href="docs/images/screenshots/genders-acp-settings.png"><img src="docs/images/screenshots/genders-acp-settings.png" width="440" height="310" alt="Genders ACP settings"></a></td>
+</tr>
+</table>
+
+Click an image for the full size. See the [screenshot gallery](docs/images/screenshots/README.md) for captions.
+
 ## Requirements
 
 - phpBB 3.3.19 or later, including phpBB 4.0 (tested on its 4.0.0-a3 development version)
