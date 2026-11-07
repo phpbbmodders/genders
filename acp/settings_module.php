@@ -1,9 +1,17 @@
 <?php
+/**
+ *
+ * Genders extension for the phpBB Forum Software package
+ *
+ * @copyright (c) 2026, phpBB Modders, https://www.phpbbmodders.com/
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
-namespace rmcgirr83\genders\acp;
+namespace phpbbmodders\genders\acp;
 
 use phpbb\request\request_interface;
-use rmcgirr83\genders\core\genders;
+use phpbbmodders\genders\core\genders;
 
 class settings_module
 {
@@ -17,10 +25,10 @@ class settings_module
 
 		$this->tpl_name = 'acp_genders_settings';
 		$this->page_title = 'ACP_GENDERS_SETTINGS';
-		$language->add_lang('info_acp_genders', 'rmcgirr83/genders');
+		$language->add_lang('info_acp_genders', 'phpbbmodders/genders');
 		add_form_key('acp_genders_settings');
 
-		$genders = $phpbb_container->get('rmcgirr83.genders.core.genders');
+		$genders = $phpbb_container->get('phpbbmodders.genders.core.genders');
 		$choices = $genders->choices();
 		unset($choices[0]);
 

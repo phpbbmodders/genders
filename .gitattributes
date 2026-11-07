@@ -12,5 +12,7 @@ tests/			export-ignore
 phpunit.xml.*	export-ignore
 build.xml		export-ignore
 composer.lock	export-ignore
-README.MD		export-ignore
+README.md		export-ignore
+docs/images/		export-ignore
+docs/update/		export-ignore
 *.PNG			export-ignore

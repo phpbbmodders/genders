@@ -1,13 +1,15 @@
 <?php
 /**
-*
-* @package Genders
-* @copyright (c) 2020 Rich McGirr(RMcGirr83)
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
-*
-*/
+ *
+ * Genders extension for the phpBB Forum Software package
+ *
+ * @copyright (c) 2020 Rich McGirr(RMcGirr83)
+ * @copyright (c) 2026, phpBB Modders, https://www.phpbbmodders.com/
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
-namespace rmcgirr83\genders\core;
+namespace phpbbmodders\genders\core;
 
 use phpbb\config\config;
 use phpbb\language\language;
@@ -44,7 +46,7 @@ class genders
 
 	public function choices(): array
 	{
-		$this->language->add_lang('genders', 'rmcgirr83/genders');
+		$this->language->add_lang('genders', 'phpbbmodders/genders');
 
 		return array_map(fn ($key) => $this->language->lang(strtoupper($key)), $this->genders);
 	}
@@ -69,7 +71,7 @@ class genders
 
 	public function asset_url(string $path): string
 	{
-		return generate_board_url() . '/ext/rmcgirr83/genders/' . $path;
+		return generate_board_url() . '/ext/phpbbmodders/genders/' . $path;
 	}
 
 	public function render(int $id, int $size = 12): string
@@ -79,7 +81,7 @@ class genders
 			return '';
 		}
 
-		$this->language->add_lang('genders', 'rmcgirr83/genders');
+		$this->language->add_lang('genders', 'phpbbmodders/genders');
 		$key = $this->genders[$id];
 		$label = utf8_htmlspecialchars($this->language->lang(strtoupper($key)));
 		$show_text = !empty($this->config['genders_show_text']);

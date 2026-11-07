@@ -1,9 +1,10 @@
 {
-    "name": "rmcgirr83/genders",
+    "name": "phpbbmodders/genders",
     "type": "phpbb-extension",
-    "description": "This Extension will allow your members to specify their Gender using fontawesome gender icons.",
-    "version": "1.3.1",
-    "time": "2024-07-17",
+    "description": "Lets members choose a gender, shown as an icon in posts, profiles and search results.",
+    "homepage": "https://www.phpbbmodders.com/",
+    "version": "1.4.0-dev",
+    "time": "2026-11-06",
     "keywords": [
         "phpbb",
         "extension",
@@ -13,8 +14,14 @@
     "license": "GPL-2.0-only",
     "authors": [
         {
+            "name": "phpBB Modders",
+            "email": "board@phpbbmodders.com",
+            "homepage": "https://www.phpbbmodders.com/",
+            "role": "Extension Developer"
+        },
+        {
             "name": "Rich McGirr",
-            "role": "Developer"
+            "role": "Past Developer"
         }
     ],
     "require": {

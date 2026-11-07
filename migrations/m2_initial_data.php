@@ -1,13 +1,15 @@
 <?php
 /**
-*
-* @package Genders
-* @copyright (c) 2015 Rich Mcgirr (RMcGirr83)
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
-*
-*/
+ *
+ * Genders extension for the phpBB Forum Software package
+ *
+ * @copyright (c) 2015 Rich Mcgirr (RMcGirr83)
+ * @copyright (c) 2026, phpBB Modders, https://www.phpbbmodders.com/
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
-namespace rmcgirr83\genders\migrations;
+namespace phpbbmodders\genders\migrations;
 
 class m2_initial_data extends \phpbb\db\migration\migration
 {
@@ -18,7 +20,7 @@ class m2_initial_data extends \phpbb\db\migration\migration
 
 	static public function depends_on()
 	{
-		return array('\rmcgirr83\genders\migrations\m1_initial_schema');
+		return array('\phpbbmodders\genders\migrations\m1_initial_schema');
 	}
 
 	public function update_data()
