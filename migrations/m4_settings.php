@@ -1,14 +1,32 @@
 <?php
+/**
+ *
+ * Genders extension for the phpBB Forum Software package
+ *
+ * @copyright (c) 2026, phpBB Modders, https://www.phpbbmodders.com/
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
-namespace rmcgirr83\genders\migrations;
+namespace phpbbmodders\genders\migrations;
 
+/**
+ * Settings for gender text, icon set, profile location and available
+ * choices, and the ACP Extensions » Genders » Settings page.
+ */
 class m4_settings extends \phpbb\db\migration\migration
 {
+	/**
+	 * @return array
+	 */
 	static public function depends_on()
 	{
-		return ['\rmcgirr83\genders\migrations\m3_initial_data'];
+		return ['\phpbbmodders\genders\migrations\m3_initial_data'];
 	}
 
+	/**
+	 * @return array
+	 */
 	public function update_data()
 	{
 		return [
@@ -16,8 +34,9 @@ class m4_settings extends \phpbb\db\migration\migration
 			['config.add', ['genders_icon_set', 'current']],
 			['config.add', ['genders_profile_details', 0]],
 			['config.add', ['genders_available', '*']],
-			['module.add', ['acp', 'ACP_CAT_DOT_MODS', [
-				'module_basename' => '\rmcgirr83\genders\acp\settings_module',
+			['module.add', ['acp', 'ACP_CAT_DOT_MODS', 'ACP_GENDERS']],
+			['module.add', ['acp', 'ACP_GENDERS', [
+				'module_basename' => '\phpbbmodders\genders\acp\settings_module',
 				'modes' => ['settings'],
 			]]],
 		];

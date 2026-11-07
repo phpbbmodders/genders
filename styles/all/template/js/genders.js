@@ -1,10 +1,12 @@
 /**
-*
-* @package Genders
-* @copyright (c) 2020 RMcGirr83
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
-*
-*/
+ *
+ * Genders extension for the phpBB Forum Software package
+ *
+ * @copyright (c) 2020 RMcGirr83
+ * @copyright (c) 2026, phpBB Modders, https://www.phpbbmodders.com/
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
 (function () {
 	'use strict';

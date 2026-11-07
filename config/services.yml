@@ -2,19 +2,18 @@ imports:
     - {resource: gender_constants.yml}
 
 services:
-    rmcgirr83.genders.listener:
-        class: rmcgirr83\genders\event\listener
+    phpbbmodders.genders.listener:
+        class: phpbbmodders\genders\event\listener
         arguments:
-            - '@language'
             - '@request'
             - '@template'
             - '@user'
-            - '@rmcgirr83.genders.core.genders'
+            - '@phpbbmodders.genders.core.genders'
         tags:
             - { name: event.listener }
 
-    rmcgirr83.genders.core.genders:
-        class: rmcgirr83\genders\core\genders
+    phpbbmodders.genders.core.genders:
+        class: phpbbmodders\genders\core\genders
         arguments:
             - '@config'
             - '@language'

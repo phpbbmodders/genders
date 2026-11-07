@@ -1,26 +1,49 @@
 <?php
+/**
+ *
+ * Genders extension for the phpBB Forum Software package
+ *
+ * @copyright (c) 2026, phpBB Modders, https://www.phpbbmodders.com/
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
-namespace rmcgirr83\genders\acp;
+namespace phpbbmodders\genders\acp;
 
 use phpbb\request\request_interface;
-use rmcgirr83\genders\core\genders;
+use phpbbmodders\genders\core\genders;
 
+/**
+ * ACP Extensions » Genders » Settings: gender text, icon set, profile location and available choices.
+ */
 class settings_module
 {
+	/** @var string Form action URL, set by phpBB */
 	public $u_action;
+
+	/** @var string Template file name */
 	public $tpl_name;
+
+	/** @var string Language key of the page title */
 	public $page_title;
 
+	/**
+	 * Show the settings form and save it when submitted.
+	 *
+	 * @param string $id   Module id
+	 * @param string $mode Module mode
+	 * @return void
+	 */
 	public function main($id, $mode)
 	{
 		global $config, $language, $phpbb_container, $request, $template;
 
 		$this->tpl_name = 'acp_genders_settings';
 		$this->page_title = 'ACP_GENDERS_SETTINGS';
-		$language->add_lang('info_acp_genders', 'rmcgirr83/genders');
+		$language->add_lang('info_acp_genders', 'phpbbmodders/genders');
 		add_form_key('acp_genders_settings');
 
-		$genders = $phpbb_container->get('rmcgirr83.genders.core.genders');
+		$genders = $phpbb_container->get('phpbbmodders.genders.core.genders');
 		$choices = $genders->choices();
 		unset($choices[0]);
 

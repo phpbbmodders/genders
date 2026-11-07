@@ -1,20 +1,20 @@
 <?php
 /**
-*
-* Genders extension for the phpBB Forum Software package.
-*
-* @copyright (c) 2015 Rich McGirr (RMcGirr83)
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
-*
-*/
+ *
+ * Genders extension for the phpBB Forum Software package
+ *
+ * @copyright (c) 2015 Rich McGirr (RMcGirr83)
+ * @copyright (c) 2026, phpBB Modders, https://www.phpbbmodders.com/
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
-namespace rmcgirr83\genders\event;
+namespace phpbbmodders\genders\event;
 
 /**
 * @ignore
 */
-use rmcgirr83\genders\core\genders;
-use phpbb\language\language;
+use phpbbmodders\genders\core\genders;
 use phpbb\request\request;
 use phpbb\request\request_interface;
 use phpbb\template\template;
@@ -27,9 +27,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 */
 class listener implements EventSubscriberInterface
 {
-
-	/** @var language $language */
-	protected $language;
 
 	/** @var request $request */
 	protected $request;
@@ -44,14 +41,12 @@ class listener implements EventSubscriberInterface
 	private $genders;
 
 	public function __construct(
-		language $language,
 		request $request,
 		template $template,
 		user $user,
 		genders $genders
 	)
 	{
-		$this->language = $language;
 		$this->request = $request;
 		$this->template = $template;
 		$this->user = $user;
@@ -68,7 +63,6 @@ class listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return [
-			'core.acp_extensions_run_action_after'	=>	'acp_extensions_run_action_after',
 			'core.ucp_profile_modify_profile_info'		=> 'user_gender_profile',
 			'core.ucp_profile_info_modify_sql_ary'		=> 'user_gender_profile_sql',
 			'core.acp_users_modify_profile'				=> 'user_gender_profile',
@@ -82,21 +76,6 @@ class listener implements EventSubscriberInterface
 			'core.ucp_register_data_before'				=> 'user_gender_profile',
 			'core.ucp_register_user_row_after'			=> 'user_gender_registration_sql',
 		];
-	}
-
-	/* Display additional metadata in extension details
-	*
-	* @param $event			event object
-	* @param return null
-	* @access public
-	*/
-	public function acp_extensions_run_action_after($event)
-	{
-		if ($event['ext_name'] == 'rmcgirr83/genders' && $event['action'] == 'details')
-		{
-			$this->language->add_lang('genders', $event['ext_name']);
-			$this->template->assign_var('S_BUY_ME_A_BEER_GENDERS', true);
-		}
 	}
 
 	/**
