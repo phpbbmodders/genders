@@ -81,14 +81,14 @@ class genders
 
 		$this->language->add_lang('genders', 'rmcgirr83/genders');
 		$key = $this->genders[$id];
-		$label = htmlspecialchars($this->language->lang(strtoupper($key)), ENT_QUOTES, 'UTF-8');
+		$label = utf8_htmlspecialchars($this->language->lang(strtoupper($key)));
 		$show_text = !empty($this->config['genders_show_text']);
 		$set = $this->config['genders_icon_set'] ?? 'current';
 
 		if (isset(self::ICON_SETS[$set]) && $set !== 'current' && ($id === 1 || $id === 2))
 		{
 			$file = $id === 1 ? 'icon_gender_m.gif' : 'icon_gender_f.gif';
-			$url = htmlspecialchars($this->asset_url("images/legacy/$set/$file"), ENT_QUOTES, 'UTF-8');
+			$url = utf8_htmlspecialchars($this->asset_url("images/legacy/$set/$file"));
 			$icon = '<img src="' . $url . '" alt="' . ($show_text ? '' : $label) . '">';
 		}
 		else

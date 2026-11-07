@@ -126,9 +126,9 @@ class listener implements EventSubscriberInterface
 			}
 
 			$selected = $id === $gender_id ? ' selected="selected"' : '';
-			$preview = htmlspecialchars($this->genders->render($id, 18), ENT_QUOTES, 'UTF-8');
+			$preview = utf8_htmlspecialchars($this->genders->render($id, 18));
 			$options .= '<option value="' . $id . '"' . $selected . ' data-preview="' . $preview . '">'
-				. htmlspecialchars($label, ENT_QUOTES, 'UTF-8') . '</option>';
+				. utf8_htmlspecialchars($label) . '</option>';
 		}
 
 		$this->template->assign_vars([
