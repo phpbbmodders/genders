@@ -1,3 +1,3 @@
-{% if USER_GENDER %}
+{% if USER_GENDER and not S_GENDERS_PROFILE_DETAILS %}
 	<dt>{{ lang('GENDER') }}{{ lang('COLON') }}</dt> <dd>{{ USER_GENDER }}</dd>
 {% endif %}

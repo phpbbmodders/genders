@@ -1,4 +1,4 @@
-{% if USER_GENDER %}
+{% if USER_GENDER and not S_GENDERS_PROFILE_DETAILS %}
 	<li class="row gx-0">
 		<span class="fw-bold col-sm-4 px-1 text-start text-sm-end">{{ lang('GENDER') }}{{ lang('COLON') }}</span>
 		<span class=" col-11 ms-auto col-sm-8 px-1">{{ USER_GENDER }}</span>

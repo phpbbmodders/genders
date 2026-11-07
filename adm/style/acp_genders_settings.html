@@ -1,0 +1,45 @@
+{% INCLUDE 'overall_header.html' %}
+
+<h1>{{ lang('ACP_GENDERS_SETTINGS') }}</h1>
+
+<form id="acp_genders_settings" method="post" action="{{ U_ACTION }}">
+	<fieldset>
+		<dl>
+			<dt><label for="show_text">{{ lang('GENDERS_SHOW_TEXT') }}</label></dt>
+			<dd>
+				<label><input type="radio" id="show_text" name="show_text" value="1"{% if S_SHOW_TEXT %} checked{% endif %}> {{ lang('YES') }}</label>
+				<label><input type="radio" name="show_text" value="0"{% if not S_SHOW_TEXT %} checked{% endif %}> {{ lang('NO') }}</label>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="icon_set">{{ lang('GENDERS_ICON_SET') }}</label><br><span>{{ lang('GENDERS_ICON_SET_EXPLAIN') }}</span></dt>
+			<dd><select id="icon_set" name="icon_set">
+				{% for set in icon_sets %}
+					<option value="{{ set.VALUE }}"{% if set.S_SELECTED %} selected{% endif %}>{{ set.LABEL }}</option>
+				{% endfor %}
+			</select></dd>
+		</dl>
+		<dl>
+			<dt><label for="profile_details">{{ lang('GENDERS_PROFILE_LOCATION') }}</label></dt>
+			<dd><select id="profile_details" name="profile_details">
+				<option value="0"{% if not S_PROFILE_DETAILS %} selected{% endif %}>{{ lang('GENDERS_PROFILE_STATISTICS') }}</option>
+				<option value="1"{% if S_PROFILE_DETAILS %} selected{% endif %}>{{ lang('GENDERS_PROFILE_DETAILS') }}</option>
+			</select></dd>
+		</dl>
+	</fieldset>
+
+	<fieldset>
+		<legend>{{ lang('GENDERS_AVAILABLE') }}</legend>
+		<p>{{ lang('GENDERS_AVAILABLE_EXPLAIN') }}</p>
+		{% for choice in choices %}
+			<div><label><input type="checkbox" name="available[]" value="{{ choice.ID }}"{% if choice.S_CHECKED %} checked{% endif %}> {{ choice.LABEL }}</label></div>
+		{% endfor %}
+	</fieldset>
+
+	<fieldset class="submit-buttons">
+		<input type="submit" class="button1" name="submit" value="{{ lang('SUBMIT') }}">
+		{{ S_FORM_TOKEN }}
+	</fieldset>
+</form>
+
+{% INCLUDE 'overall_footer.html' %}

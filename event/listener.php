@@ -13,9 +13,10 @@ namespace rmcgirr83\genders\event;
 /**
 * @ignore
 */
-use phpbb\controller\helper;
+use rmcgirr83\genders\core\genders;
 use phpbb\language\language;
 use phpbb\request\request;
+use phpbb\request\request_interface;
 use phpbb\template\template;
 use phpbb\user;
 
@@ -26,9 +27,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 */
 class listener implements EventSubscriberInterface
 {
-
-	/** @var helper $helper*/
-	protected $helper;
 
 	/** @var language $language */
 	protected $language;
@@ -42,46 +40,22 @@ class listener implements EventSubscriberInterface
 	/** @var user $user */
 	protected $user;
 
-	/** @var string root_path */
-	protected $root_path;
+	/** @var genders */
+	private $genders;
 
-	/** @var string php_ext */
-	protected $php_ext;
-
-	/** @var array gender_constants */
-	protected $gender_constants;
-
-	/**
-	* Constructor
-	*
-	* @param helper           		$helper         	Controller helper object
-	* @param language				$language			Language object
-	* @param request				$request			Request object
-	* @param template          		$template       	Template object
-	* @param user                   $user           	User object
-	* @param string                 $root_path			phpBB root path
-	* @param string                 $php_ext			phpEx
-	* @param array					$gender_constants	constants used by the extension
-	* @access public
-	*/
 	public function __construct(
-		helper $helper,
 		language $language,
 		request $request,
 		template $template,
 		user $user,
-		string $root_path,
-		string $php_ext,
-		array $gender_constants)
+		genders $genders
+	)
 	{
-		$this->helper = $helper;
 		$this->language = $language;
 		$this->request = $request;
 		$this->template = $template;
 		$this->user = $user;
-		$this->root_path = $root_path;
-		$this->php_ext = $php_ext;
-		$this->gender_constants = $gender_constants;
+		$this->genders = $genders;
 	}
 
 	/**
@@ -134,35 +108,33 @@ class listener implements EventSubscriberInterface
 	*/
 	public function user_gender_profile($event)
 	{
-		if (DEFINED('IN_ADMIN'))
-		{
-			$gender_id = $this->request->variable('user_gender', (int) $event['user_row']['user_gender']);
-		}
-		else
-		{
-			$gender_id = $this->request->variable('user_gender', (int) $this->user->data['user_gender']);
-		}
-		// Request the user option vars and add them to the data array
-		$event['data'] = array_merge($event['data'], [
-			'user_gender'	=> $gender_id,
-		]);
+		$stored = (int) ($event['user_row']['user_gender'] ?? $this->user->data['user_gender'] ?? 0);
+		$requested = $this->request->variable('user_gender', $stored, false, request_interface::POST);
+		$gender_id = $this->genders->selection($requested, $stored);
+		$event['data'] = array_merge($event['data'], ['user_gender' => $gender_id]);
 
-		$this->language->add_lang('genders', 'rmcgirr83/genders');
-
-		$genders = array_flip($this->gender_constants);
-		$gender_image = $gender_options = '';
-
-		foreach ($genders as $key => $value)
+		$available = $this->genders->available_ids();
+		$choices = $this->genders->choices();
+		// Retain an unknown historical value when the profile is saved unchanged.
+		$choices[$stored] ??= $choices[0];
+		$options = '';
+		foreach ($choices as $id => $label)
 		{
-			$selected = ($gender_id == $key) ? ' selected="selected"' : '';
-			$gender_options .= '<option value="' . $key . '" ' . $selected . '>' . $this->language->lang(strtoupper($value)) . '</option>';
-			$gender_image .= ($gender_id == $key) ? $value : '';
+			if ($id !== $stored && !in_array($id, $available, true))
+			{
+				continue;
+			}
+
+			$selected = $id === $gender_id ? ' selected="selected"' : '';
+			$preview = htmlspecialchars($this->genders->render($id, 18), ENT_QUOTES, 'UTF-8');
+			$options .= '<option value="' . $id . '"' . $selected . ' data-preview="' . $preview . '">'
+				. htmlspecialchars($label, ENT_QUOTES, 'UTF-8') . '</option>';
 		}
 
 		$this->template->assign_vars([
-			'USER_GENDER'		=> $gender_image,
-			'S_GENDER_OPTIONS'	=> $gender_options,
-			'AJAX_GENDER'		=> $this->helper->route('rmcgirr83_genders_core_get_gender', ['gender_id' => $gender_id]),
+			'USER_GENDER' => $this->genders->render($gender_id, 18),
+			'S_GENDER_OPTIONS' => $options,
+			'GENDERS_PREVIEW_JS' => $this->genders->asset_url('styles/all/template/js/genders.js'),
 		]);
 	}
 
@@ -220,7 +192,7 @@ class listener implements EventSubscriberInterface
 		$gender = '';
 		if ($event['user_poster_data']['user_type'] != USER_IGNORE)
 		{
-			$gender = $this->display_user_gender($event['user_poster_data']['user_gender']);
+			$gender = $this->genders->render((int) $event['user_poster_data']['user_gender']);
 		}
 
 		$event['post_row'] = array_merge($event['post_row'],[
@@ -240,11 +212,12 @@ class listener implements EventSubscriberInterface
 		$gender = '';
 		if ($event['member']['user_type'] != USER_IGNORE)
 		{
-			$gender = $this->display_user_gender($event['member']['user_gender']);
+			$gender = $this->genders->render((int) $event['member']['user_gender']);
 		}
 
 		$this->template->assign_vars([
 			'USER_GENDER'	=> $gender,
+			'S_GENDERS_PROFILE_DETAILS' => $this->genders->in_profile_details(),
 		]);
 	}
 
@@ -280,7 +253,7 @@ class listener implements EventSubscriberInterface
 		$gender = '';
 		if ($event['row']['user_type'] != USER_IGNORE)
 		{
-			$gender = $this->display_user_gender($event['row']['user_gender']);
+			$gender = $this->genders->render((int) $event['row']['user_gender']);
 		}
 		$array = array_merge($array, [
 			'USER_GENDER'	=> $gender,
@@ -298,31 +271,10 @@ class listener implements EventSubscriberInterface
 	*/
 	public function user_gender_registration_sql($event)
 	{
+		$requested = $this->request->variable('user_gender', 0, false, request_interface::POST);
 		$event['user_row'] = array_merge($event['user_row'], [
-				'user_gender' => $this->request->variable('user_gender', 0),
+			'user_gender' => $this->genders->selection($requested, 0),
 		]);
 	}
 
-	/**
-	 * display user gender
-	 *
-	 * @author RMcGirr83
-	 * @param int $user_gender User's gender
-	 * @return string Gender image
-	 */
-	private function display_user_gender($user_gender)
-	{
-		$this->language->add_lang('genders', 'rmcgirr83/genders');
-		$genders = $this->gender_constants;
-		$gender = '';
-		foreach ($genders as $key => $value)
-		{
-			if ((int) $user_gender == $value && $user_gender <> 0)
-			{
-				$gender = '<i class="fa ' . $key . '" style="font-size:12px" title="' . $this->language->lang(strtoupper($key)) . '"></i>';
-			}
-		}
-
-		return $gender;
-	}
 }
