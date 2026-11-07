@@ -13,12 +13,27 @@ namespace phpbbmodders\genders\acp;
 use phpbb\request\request_interface;
 use phpbbmodders\genders\core\genders;
 
+/**
+ * ACP Extensions » Genders » Settings: gender text, icon set, profile location and available choices.
+ */
 class settings_module
 {
+	/** @var string Form action URL, set by phpBB */
 	public $u_action;
+
+	/** @var string Template file name */
 	public $tpl_name;
+
+	/** @var string Language key of the page title */
 	public $page_title;
 
+	/**
+	 * Show the settings form and save it when submitted.
+	 *
+	 * @param string $id   Module id
+	 * @param string $mode Module mode
+	 * @return void
+	 */
 	public function main($id, $mode)
 	{
 		global $config, $language, $phpbb_container, $request, $template;

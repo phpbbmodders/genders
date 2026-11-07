@@ -10,8 +10,16 @@
 
 namespace phpbbmodders\genders\acp;
 
+/**
+ * ACP module information for the Genders settings page.
+ */
 class settings_info
 {
+	/**
+	 * Describe the module and its modes for phpBB's module manager.
+	 *
+	 * @return array
+	 */
 	public function module()
 	{
 		return [
