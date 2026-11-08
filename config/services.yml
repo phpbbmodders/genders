@@ -12,6 +12,25 @@ services:
         tags:
             - { name: event.listener }
 
+    phpbbmodders.genders.gendered_language_listener:
+        class: phpbbmodders\genders\event\gendered_language_listener
+        arguments:
+            - '@user'
+            - '@language'
+            - '@phpbbmodders.genders.core.genders'
+            - '@phpbbmodders.genders.gendered_loader'
+        tags:
+            - { name: event.listener }
+
+    # Wraps phpBB's language file loader so gender-specific strings survive later language file loads
+    phpbbmodders.genders.gendered_loader:
+        class: phpbbmodders\genders\core\gendered_loader
+        decorates: language.loader
+        arguments:
+            - '%core.root_path%'
+            - '%core.php_ext%'
+            - '@phpbbmodders.genders.gendered_loader.inner'
+
     phpbbmodders.genders.core.genders:
         class: phpbbmodders\genders\core\genders
         arguments:

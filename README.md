@@ -13,6 +13,7 @@ Lets members choose a gender, shown as an icon in posts, profiles and search res
   - choose an icon set: the current Font Awesome icons, or one of eight sets from the phpBB 3.0 Genders MOD;
   - show gender in User Statistics or in the main profile details;
   - choose which genders members can pick.
+- Translations can give members wording that matches their gender, for languages where sentences change with it. See [Gender-specific language strings](https://github.com/phpbbmodders/genders/wiki/Gender-specific-language-strings) on the wiki.
 
 ## Screenshots
 

@@ -17,3 +17,10 @@ Old MOD reference: [Genders 1.0.2 for phpBB 3.0.8](https://www.phpbb.com/customi
 ### Allow boards to choose available gender options
 
 - [x] Add ACP controls for available choices. Preserve stored selections and identifiers, reject newly selected disabled values, and keep None Specified available. [Source](https://www.phpbb.com/customise/db/extension/phpbb_3.1_genders/support/topic/252088)
+
+## Gender-specific language strings
+
+Source: [leschek's request](https://www.phpbb.com/community/viewtopic.php?p=16144225#p16144225) in the development topic.
+
+- [x] Apply per-gender override files (`language/<iso>/gendered/<gender>.php`) to the reader's own wording, kept in place for language files loaded later in the page. [Wiki](https://github.com/phpbbmodders/genders/wiki/Gender-specific-language-strings)
+- Wording about another member (for example "Posted" next to someone else's post) is out of scope: phpBB uses one string per page.

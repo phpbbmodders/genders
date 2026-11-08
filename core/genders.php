@@ -75,6 +75,17 @@ class genders
 	}
 
 	/**
+	 * Identifier of a gender, as used in gender_constants.yml.
+	 *
+	 * @param int $id Gender id
+	 * @return string|null Identifier such as "fa-venus", or null for None Specified or an unknown id
+	 */
+	public function identifier(int $id): string|null
+	{
+		return $id && isset($this->genders[$id]) ? $this->genders[$id] : null;
+	}
+
+	/**
 	 * Gender ids members may choose. None Specified (0) is always included.
 	 *
 	 * @return int[]
